@@ -35,7 +35,7 @@ namespace backend_hackatron
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "backend_hackatron", Version = "v1" });
             });
 
-            services.AddScoped<ICMDCommandsService, CMDCommandsService>();
+            services.AddSingleton<ICMDCommandsService, CMDCommandsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

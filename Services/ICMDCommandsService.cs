@@ -7,6 +7,8 @@ namespace backend_hackatron.Services
 {
     public interface ICMDCommandsService
     {
-        public string RunCMDCommand(string command);
+        public Task<List<string>> Initialise();
+
+        public List<string> PingNode();
     }
 }

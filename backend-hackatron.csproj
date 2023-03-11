@@ -9,13 +9,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="BlockchainFolder\**" />
+    <Content Remove="BlockchainFolder\**" />
+    <EmbeddedResource Remove="BlockchainFolder\**" />
+    <None Remove="BlockchainFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.PowerShell.SDK" Version="6.0.4" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="BlockchainFolder\" />
     <Folder Include="Configs\" />
+    <Folder Include="Scripts\" />
   </ItemGroup>
 
 </Project>

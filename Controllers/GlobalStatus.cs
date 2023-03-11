@@ -19,11 +19,19 @@ namespace backend_hackatron.Controllers
         }
         
         [HttpGet]
-        public bool InitialiseBlockchain()
+        public async Task<List<String>> InitialiseBlockchain()
         {
-            string result = _cmdCommandsService.RunCMDCommand("geth");
+            List<string> result = await _cmdCommandsService.Initialise();
 
-            return true;
+            return result;
+        }
+
+        [HttpPut]
+        public List<string> PingNode()
+        {
+            List<string> result = _cmdCommandsService.PingNode();
+
+            return result;
         }
 
     }
