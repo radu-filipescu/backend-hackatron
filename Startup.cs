@@ -1,3 +1,4 @@
+using backend_hackatron.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,6 +34,8 @@ namespace backend_hackatron
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "backend_hackatron", Version = "v1" });
             });
+
+            services.AddScoped<ICMDCommandsService, CMDCommandsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
