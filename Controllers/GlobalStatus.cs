@@ -63,6 +63,8 @@ namespace backend_hackatron.Controllers
             result = result.Remove(result.Length - 2);
             result = result.Remove(0, 1);
 
+            result = result.Replace(" ", string.Empty);
+
             List<string> resultSplit = result.Split(",").ToList();
 
             for(int i = 0; i < resultSplit.Count; i++)
