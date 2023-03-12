@@ -415,5 +415,29 @@ namespace backend_hackatron.Services
 
             return result;
         }
+
+        public string GetBlocksForNode(string nodeName)
+        {
+            if (!Directory.Exists("privateChain1"))
+                return "0";
+
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "cmd.exe";
+
+            string command = "C:/\"Program Files\"/Geth/geth.exe --exec eth.blockNumber attach \\\\.\\pipe\\" + nodeName;
+            startInfo.Arguments = "/C " + command;
+            process.StartInfo = startInfo;
+
+            process.StartInfo.RedirectStandardOutput = true;
+            process.Start();
+
+            string result = process.StandardOutput.ReadToEnd();
+
+            process.Kill();
+
+            return result;
+        }
     }
 }

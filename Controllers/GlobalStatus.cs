@@ -121,6 +121,14 @@ namespace backend_hackatron.Controllers
             return (int)bigDouble;
         }
 
+        [HttpPut("blocks")]
+        public int GetBlocksForNode(SingleStringDTO input)
+        {
+            string result = _cmdCommandsService.GetBlocksForNode(input.Value);
+
+            return int.Parse(result);
+        }
+
         [HttpPut("transfer")]
         public string TransferAmount([FromBody] TransferDTO input)
         {

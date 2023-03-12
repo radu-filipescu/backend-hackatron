@@ -28,5 +28,7 @@ namespace backend_hackatron.Services
         public string TransferAmount(TransferDTO input);
 
         public string IsNodeMining(string nodeName);
+
+        public string GetBlocksForNode(string nodeName);
     }
 }
