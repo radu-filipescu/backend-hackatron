@@ -371,6 +371,9 @@ namespace backend_hackatron.Services
             if (!Directory.Exists("privateChain1"))
                 return string.Empty;
 
+            if (input.TransferAmount == 0)
+                return string.Empty;
+
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
