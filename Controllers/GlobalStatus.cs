@@ -106,19 +106,19 @@ namespace backend_hackatron.Controllers
         }
 
         [HttpPut("balance")]
-        public int GetBalanceFor([FromBody] SetUserToMineDTO input)
+        public string GetBalanceFor([FromBody] SetUserToMineDTO input)
         {
             if (!Directory.Exists("privateChain1"))
-                return 0;
+                return string.Empty;
 
             string result = _cmdCommandsService.GetBalance(input.NodeName, input.UserIndex);
 
             result = result.Remove(result.Length - 1);
 
-            Double bigDouble = Double.Parse(result);
+            // Double bigDouble = Double.Parse(result);
             //bigDouble /= 1000000000000000000;
 
-            return (int)bigDouble;
+            return result;
         }
 
         [HttpPut("blocks")]
