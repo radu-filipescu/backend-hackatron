@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Management.Automation;
 using System.Threading;
 using backend_hackatron.DTOs;
+using System.IO;
 
 namespace backend_hackatron.Services
 {
@@ -19,6 +20,9 @@ namespace backend_hackatron.Services
         
         public async Task<List<string>> InitialiseNode1()
         {
+            if (Directory.Exists("privateChain1"))
+                return new List<string>();
+            
             MasterPS1 = PowerShell.Create();
 
             string command = "";
@@ -53,6 +57,9 @@ namespace backend_hackatron.Services
 
         public async Task<List<string>> InitialiseNode2()
         {
+            if (Directory.Exists("privateChain2"))
+                return new List<string>();
+
             MasterPS2 = PowerShell.Create();
 
             string command = "";
@@ -87,6 +94,9 @@ namespace backend_hackatron.Services
 
         public async Task<List<string>> InitialiseNode3()
         {
+            if (Directory.Exists("privateChain3"))
+                return new List<string>();
+
             MasterPS3 = PowerShell.Create();
 
             string command = "";
@@ -121,6 +131,9 @@ namespace backend_hackatron.Services
 
         public async Task<List<string>> InitialiseNode4()
         {
+            if (Directory.Exists("privateChain4"))
+                return new List<string>();
+
             MasterPS4 = PowerShell.Create();
 
             string command = "";
@@ -155,6 +168,9 @@ namespace backend_hackatron.Services
 
         public async Task<List<string>> InitialiseNode5()
         {
+            if (Directory.Exists("privateChain5"))
+                return new List<string>();
+
             MasterPS5 = PowerShell.Create();
 
             string command = "";
