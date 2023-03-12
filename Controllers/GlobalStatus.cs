@@ -126,7 +126,12 @@ namespace backend_hackatron.Controllers
         {
             string result = _cmdCommandsService.GetBlocksForNode(input.Value);
 
-            return int.Parse(result);
+            int resultInt = 0;
+
+            if (int.TryParse(result, out resultInt))
+                return resultInt;
+
+            return 0;
         }
 
         [HttpPut("transfer")]
