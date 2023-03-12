@@ -22,10 +22,6 @@ namespace backend_hackatron.Controllers
         public IEnumerable<TransferDTO> GetTransfersHistory()
         {
             TransferDTO transferDTO = new TransferDTO();
-
-            transferDTO.SenderId = "a22123wdad";
-            transferDTO.ReceiverId = "2312o9jaw9";
-            transferDTO.TranferAmount = 1000;
             
             return new TransferDTO[] { transferDTO };
         }

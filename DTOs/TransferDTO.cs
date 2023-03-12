@@ -7,10 +7,12 @@ namespace backend_hackatron.DTOs
 {
     public class TransferDTO
     {
-        public string SenderId { get; set; }
+        public int SenderIdx { get; set; }
 
-        public string ReceiverId { get; set; }
+        public int ReceiverIdx { get; set; }
 
         public int TranferAmount { get; set; }
+
+        public string nodeName { get; set; }
     }
 }

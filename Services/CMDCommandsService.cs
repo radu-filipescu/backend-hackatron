@@ -5,69 +5,367 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Management.Automation;
 using System.Threading;
+using backend_hackatron.DTOs;
 
 namespace backend_hackatron.Services
 {
     public class CMDCommandsService: ICMDCommandsService
     {
-        private static PowerShell MasterPS;
-        private static PowerShell TemporaryPS;
+        private static PowerShell MasterPS1;
+        private static PowerShell MasterPS2;
+        private static PowerShell MasterPS3;
+        private static PowerShell MasterPS4;
+        private static PowerShell MasterPS5;
         
-        public async Task<List<string>> Initialise()
+        public async Task<List<string>> InitialiseNode1()
         {
-            MasterPS = PowerShell.Create();
+            MasterPS1 = PowerShell.Create();
 
             string command = "";
             List<string>resultString = new List<string>();
 
             // create blockchain
-            command = "C:/\"Program Files\"/Geth/geth.exe -datadir ./privateChain init ./Configs/genesis.json";
-            MasterPS.AddScript(command);
+            command = "C:/\"Program Files\"/Geth/geth.exe -datadir ./privateChain1 init ./Configs/genesis.json";
+            MasterPS1.AddScript(command);
 
             PSDataCollection<PSObject> outputCollection = new PSDataCollection<PSObject>();
 
-            var results = MasterPS.BeginInvoke<PSObject, PSObject>(null, outputCollection);
+            var results = MasterPS1.BeginInvoke<PSObject, PSObject>(null, outputCollection);
             results.AsyncWaitHandle.WaitOne();
-            var tmp = MasterPS.Streams.Error.ReadAll();
+            var tmp = MasterPS1.Streams.Error.ReadAll();
             foreach(var line in tmp)
             {
                 resultString.Add(line.Exception.Message);
             }
-            MasterPS.Commands.Clear();
-
-            command = "C:/\"Program Files\"/Geth/geth.exe --datadir ./privateChain --nodiscover --networkid 1234 --port 30306 --authrpc.port 8552 --rpc.enabledeprecatedpersonal";
-            MasterPS.AddScript(command);
+            MasterPS1.Commands.Clear();
+                                                         
+            command = "C:/\"Program Files\"/Geth/geth.exe --datadir ./privateChain1 --nodiscover --networkid 1234 --port 30301 --authrpc.port 8551 --rpc.enabledeprecatedpersonal --ipcpath ./privateChain1";
+            MasterPS1.AddScript(command);
 
             outputCollection = new PSDataCollection<PSObject>();
 
-            results = MasterPS.BeginInvoke<PSObject, PSObject>(null, outputCollection);
+            results = MasterPS1.BeginInvoke<PSObject, PSObject>(null, outputCollection);
 
-            tmp = MasterPS.Streams.Error.ReadAll();
+            tmp = MasterPS1.Streams.Error.ReadAll();
 
             return resultString;
         }
 
-
-        public List<string> PingNode()
+        public async Task<List<string>> InitialiseNode2()
         {
-            TemporaryPS = PowerShell.Create();
+            MasterPS2 = PowerShell.Create();
 
-            string command = "C:/\"Program Files\"/Geth/geth.exe --exec eth.accounts attach \\\\.\\pipe\\geth.ipc";
+            string command = "";
             List<string> resultString = new List<string>();
 
-            TemporaryPS.AddScript(command);
+            // create blockchain
+            command = "C:/\"Program Files\"/Geth/geth.exe -datadir ./privateChain2 init ./Configs/genesis.json";
+            MasterPS2.AddScript(command);
 
             PSDataCollection<PSObject> outputCollection = new PSDataCollection<PSObject>();
 
-            var results = TemporaryPS.BeginInvoke<PSObject, PSObject>(null, outputCollection);
+            var results = MasterPS2.BeginInvoke<PSObject, PSObject>(null, outputCollection);
             results.AsyncWaitHandle.WaitOne();
-
-            foreach(var element in outputCollection)
+            var tmp = MasterPS2.Streams.Error.ReadAll();
+            foreach (var line in tmp)
             {
-                resultString.Add(element.BaseObject.ToString());
+                resultString.Add(line.Exception.Message);
             }
+            MasterPS2.Commands.Clear();
+
+            command = "C:/\"Program Files\"/Geth/geth.exe --datadir ./privateChain2 --nodiscover --networkid 1234 --port 30302 --authrpc.port 8552 --rpc.enabledeprecatedpersonal --ipcpath ./privateChain2";
+            MasterPS2.AddScript(command);
+
+            outputCollection = new PSDataCollection<PSObject>();
+
+            results = MasterPS2.BeginInvoke<PSObject, PSObject>(null, outputCollection);
+
+            tmp = MasterPS2.Streams.Error.ReadAll();
 
             return resultString;
+        }
+
+        public async Task<List<string>> InitialiseNode3()
+        {
+            MasterPS3 = PowerShell.Create();
+
+            string command = "";
+            List<string> resultString = new List<string>();
+
+            // create blockchain
+            command = "C:/\"Program Files\"/Geth/geth.exe -datadir ./privateChain3 init ./Configs/genesis.json";
+            MasterPS3.AddScript(command);
+
+            PSDataCollection<PSObject> outputCollection = new PSDataCollection<PSObject>();
+
+            var results = MasterPS3.BeginInvoke<PSObject, PSObject>(null, outputCollection);
+            results.AsyncWaitHandle.WaitOne();
+            var tmp = MasterPS3.Streams.Error.ReadAll();
+            foreach (var line in tmp)
+            {
+                resultString.Add(line.Exception.Message);
+            }
+            MasterPS3.Commands.Clear();
+
+            command = "C:/\"Program Files\"/Geth/geth.exe --datadir ./privateChain3 --nodiscover --networkid 1234 --port 30303 --authrpc.port 8553 --rpc.enabledeprecatedpersonal --ipcpath ./privateChain3";
+            MasterPS3.AddScript(command);
+
+            outputCollection = new PSDataCollection<PSObject>();
+
+            results = MasterPS3.BeginInvoke<PSObject, PSObject>(null, outputCollection);
+
+            tmp = MasterPS3.Streams.Error.ReadAll();
+
+            return resultString;
+        }
+
+        public async Task<List<string>> InitialiseNode4()
+        {
+            MasterPS4 = PowerShell.Create();
+
+            string command = "";
+            List<string> resultString = new List<string>();
+
+            // create blockchain
+            command = "C:/\"Program Files\"/Geth/geth.exe -datadir ./privateChain4 init ./Configs/genesis.json";
+            MasterPS4.AddScript(command);
+
+            PSDataCollection<PSObject> outputCollection = new PSDataCollection<PSObject>();
+
+            var results = MasterPS4.BeginInvoke<PSObject, PSObject>(null, outputCollection);
+            results.AsyncWaitHandle.WaitOne();
+            var tmp = MasterPS4.Streams.Error.ReadAll();
+            foreach (var line in tmp)
+            {
+                resultString.Add(line.Exception.Message);
+            }
+            MasterPS4.Commands.Clear();
+
+            command = "C:/\"Program Files\"/Geth/geth.exe --datadir ./privateChain4 --nodiscover --networkid 1234 --port 30304 --authrpc.port 8554 --rpc.enabledeprecatedpersonal --ipcpath ./privateChain4";
+            MasterPS4.AddScript(command);
+
+            outputCollection = new PSDataCollection<PSObject>();
+
+            results = MasterPS4.BeginInvoke<PSObject, PSObject>(null, outputCollection);
+
+            tmp = MasterPS4.Streams.Error.ReadAll();
+
+            return resultString;
+        }
+
+        public async Task<List<string>> InitialiseNode5()
+        {
+            MasterPS5 = PowerShell.Create();
+
+            string command = "";
+            List<string> resultString = new List<string>();
+
+            // create blockchain
+            command = "C:/\"Program Files\"/Geth/geth.exe -datadir ./privateChain5 init ./Configs/genesis.json";
+            MasterPS5.AddScript(command);
+
+            PSDataCollection<PSObject> outputCollection = new PSDataCollection<PSObject>();
+
+            var results = MasterPS5.BeginInvoke<PSObject, PSObject>(null, outputCollection);
+            results.AsyncWaitHandle.WaitOne();
+            var tmp = MasterPS5.Streams.Error.ReadAll();
+            foreach (var line in tmp)
+            {
+                resultString.Add(line.Exception.Message);
+            }
+            MasterPS5.Commands.Clear();
+
+            command = "C:/\"Program Files\"/Geth/geth.exe --datadir ./privateChain5 --nodiscover --networkid 1234 --port 30305 --authrpc.port 8555 --rpc.enabledeprecatedpersonal --ipcpath ./privateChain5";
+            MasterPS5.AddScript(command);
+
+            outputCollection = new PSDataCollection<PSObject>();
+
+            results = MasterPS5.BeginInvoke<PSObject, PSObject>(null, outputCollection);
+
+            tmp = MasterPS5.Streams.Error.ReadAll();
+
+            return resultString;
+        }
+
+        public List<string> CreateUser(string nodeName)
+        {
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "cmd.exe";
+            string command = "C:/\"Program Files\"/Geth/geth.exe --exec web3.personal.newAccount(\"1234567890\") attach \\\\.\\pipe\\" + nodeName;
+            startInfo.Arguments = "/C " + command;
+            process.StartInfo = startInfo;
+
+            process.StartInfo.RedirectStandardOutput = true;
+            process.Start();
+
+            string result = process.StandardOutput.ReadToEnd();
+
+            List<string> resultList = new List<string>();
+            resultList.Add(result);
+
+            process.Kill();
+
+            return resultList;
+        }
+
+        public List<string> GetAllUsersFromNode(string nodeName)
+        {
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "cmd.exe";
+            string command = "C:/\"Program Files\"/Geth/geth.exe --exec eth.accounts attach \\\\.\\pipe\\" + nodeName;
+            startInfo.Arguments = "/C " + command;
+            process.StartInfo = startInfo;
+
+            process.StartInfo.RedirectStandardOutput = true;
+            process.Start();
+
+            string result = process.StandardOutput.ReadToEnd();
+
+            List<string> resultList = new List<string>();
+            resultList.Add(result);
+
+            process.Kill();
+
+            return resultList;
+        }
+
+        public List<string> SetUserToMine(string nodeName, int userIndex)
+        {
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "cmd.exe";
+            string command = "C:/\"Program Files\"/Geth/geth.exe --exec miner.setEtherbase(eth.accounts[" + userIndex.ToString()+"]) attach \\\\.\\pipe\\" + nodeName;
+            startInfo.Arguments = "/C " + command;
+            process.StartInfo = startInfo;
+
+            process.StartInfo.RedirectStandardOutput = true;
+            process.Start();
+
+            string result = process.StandardOutput.ReadToEnd();
+
+            List<string> resultList = new List<string>();
+            resultList.Add(result);
+
+            process.Kill();
+
+            return resultList;
+        }
+
+        public bool StartMining(string nodeName)
+        {
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "cmd.exe";
+            string command = "C:/\"Program Files\"/Geth/geth.exe --exec miner.start() attach \\\\.\\pipe\\" + nodeName;
+            startInfo.Arguments = "/C " + command;
+            process.StartInfo = startInfo;
+
+            process.StartInfo.RedirectStandardOutput = true;
+            process.Start();
+
+            string result = process.StandardOutput.ReadToEnd();
+
+            List<string> resultList = new List<string>();
+            resultList.Add(result);
+
+            process.Kill();
+
+            return true;
+        }
+
+        public bool StopMining(string nodeName)
+        {
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "cmd.exe";
+            string command = "C:/\"Program Files\"/Geth/geth.exe --exec miner.stop() attach \\\\.\\pipe\\" + nodeName;
+            startInfo.Arguments = "/C " + command;
+            process.StartInfo = startInfo;
+
+            process.StartInfo.RedirectStandardOutput = true;
+            process.Start();
+
+            string result = process.StandardOutput.ReadToEnd();
+
+            List<string> resultList = new List<string>();
+            resultList.Add(result);
+
+            process.Kill();
+
+            return true;
+        }
+
+        public string GetBalance(string nodeName, int userIndex)
+        {
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "cmd.exe";
+            string command = "C:/\"Program Files\"/Geth/geth.exe --exec eth.getBalance(eth.accounts[" + userIndex.ToString() + "]) attach \\\\.\\pipe\\" + nodeName;
+            startInfo.Arguments = "/C " + command;
+            process.StartInfo = startInfo;
+
+            process.StartInfo.RedirectStandardOutput = true;
+            process.Start();
+
+            string result = process.StandardOutput.ReadToEnd();
+
+            List<string> resultList = new List<string>();
+            resultList.Add(result);
+
+            process.Kill();
+
+            return result;
+        }
+
+        public string TransferAmount(TransferDTO input)
+        {
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "cmd.exe";
+            string command = "C:/\"Program Files\"/Geth/geth.exe exec web3.personal.sendTransaction({from:eth.accounts[" + input.SenderIdx + "],to:eth.accounts[" + input.ReceiverIdx + "],value:'" + input.TranferAmount + "'},'1234567890') attach \\\\.\\pipe\\" + input.nodeName;
+            startInfo.Arguments = "/C " + command;
+            process.StartInfo = startInfo;
+
+            process.StartInfo.RedirectStandardOutput = true;
+            process.Start();
+
+            string result = process.StandardOutput.ReadToEnd();
+
+            List<string> resultList = new List<string>();
+            resultList.Add(result);
+
+            process.Kill();
+
+            return result;
+        }
+
+        public string IsNodeMining(string nodeName)
+        {
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "cmd.exe";
+            string command = "C:/\"Program Files\"/Geth/geth.exe --exec eth.mining attach \\\\.\\pipe\\" + nodeName;
+            startInfo.Arguments = "/C " + command;
+            process.StartInfo = startInfo;
+
+            process.StartInfo.RedirectStandardOutput = true;
+            process.Start();
+
+            string result = process.StandardOutput.ReadToEnd();
+
+            process.Kill();
+
+            return result;
         }
     }
 }

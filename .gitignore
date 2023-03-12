@@ -362,3 +362,8 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /privateChain/geth
+/privateChain1
+/privateChain5/geth
+/privateChain4
+/privateChain3
+/privateChain2
