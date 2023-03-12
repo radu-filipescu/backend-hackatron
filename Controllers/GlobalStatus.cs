@@ -85,6 +85,14 @@ namespace backend_hackatron.Controllers
             return resultSplit;
         }
 
+        [HttpPut("connect")]
+        public string ConnectNodes([FromBody]ConnectionDTO input)
+        {
+            string result = _cmdCommandsService.ConnectNodes(input);
+
+            return result;
+        }
+
         [HttpPut("setUserToMine")]
         public List<string> SetUserToMine([FromBody] SetUserToMineDTO input)
         {

@@ -425,8 +425,60 @@ namespace backend_hackatron.Services
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             startInfo.FileName = "cmd.exe";
-
             string command = "C:/\"Program Files\"/Geth/geth.exe --exec eth.blockNumber attach \\\\.\\pipe\\" + nodeName;
+            startInfo.Arguments = "/C " + command;
+            process.StartInfo = startInfo;
+
+            process.StartInfo.RedirectStandardOutput = true;
+            process.Start();
+
+            string result = process.StandardOutput.ReadToEnd();
+
+            process.Kill();
+
+
+            return result;
+        }
+
+        public string ConnectNodes(ConnectionDTO input)
+        {
+            if (!Directory.Exists("privateChain1"))
+                return "0";
+
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "cmd.exe";
+
+            string command = "C:/\"Program Files\"/Geth/geth.exe --exec admin.nodeInfo.enode attach \\\\.\\pipe\\" + input.Node1;
+            startInfo.Arguments = "/C " + command;
+            process.StartInfo = startInfo;
+
+            process.StartInfo.RedirectStandardOutput = true;
+            process.Start();
+
+            string result = process.StandardOutput.ReadToEnd();
+
+            if(result.Length > 3)
+                result = result.Remove(result.Length - 2);
+
+            if (result.Length > 1)
+                result = result.Remove(0, 1);
+
+            string result2 = secondPart(result, input.Node2);
+
+            process.Kill();
+
+            return result2;
+        }
+
+        private string secondPart(string input, string node2Name)
+        {
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "cmd.exe";
+            string command = "C:/\"Program Files\"/Geth/geth.exe --exec admin.addPeer('" + input +"') attach //./pipe/" + node2Name;
             startInfo.Arguments = "/C " + command;
             process.StartInfo = startInfo;
 
