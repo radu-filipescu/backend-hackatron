@@ -315,7 +315,8 @@ namespace backend_hackatron.Services
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             startInfo.FileName = "cmd.exe";
-            string command = "C:/\"Program Files\"/Geth/geth.exe --exec eth.getBalance(eth.accounts[" + userIndex.ToString() + "]) attach \\\\.\\pipe\\" + nodeName;
+            // string command = "C:/\"Program Files\"/Geth/geth.exe --exec eth.getBalance(eth.accounts[" + userIndex.ToString() + "]) attach \\\\.\\pipe\\" + nodeName;
+            string command = "C:/\"Program Files\"/Geth/geth.exe --exec web3.fromWei(eth.getBalance(eth.accounts[" + userIndex.ToString() + "]),'ether') attach \\\\.\\pipe\\" + nodeName;
             startInfo.Arguments = "/C " + command;
             process.StartInfo = startInfo;
 
@@ -338,7 +339,7 @@ namespace backend_hackatron.Services
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             startInfo.FileName = "cmd.exe";
-            string command = "C:/\"Program Files\"/Geth/geth.exe exec web3.personal.sendTransaction({from:eth.accounts[" + input.SenderIdx + "],to:eth.accounts[" + input.ReceiverIdx + "],value:'" + input.TranferAmount + "'},'1234567890') attach \\\\.\\pipe\\" + input.nodeName;
+            string command = "C:/\"Program Files\"/Geth/geth.exe exec web3.personal.sendTransaction({from:eth.accounts[" + input.SenderIdx + "],to:eth.accounts[" + input.ReceiverIdx.ToString() + "],value:'" + input.TranferAmount.ToString() + "000000000000000000" + "'},'1234567890') attach \\\\.\\pipe\\" + input.nodeName;
             startInfo.Arguments = "/C " + command;
             process.StartInfo = startInfo;
 
