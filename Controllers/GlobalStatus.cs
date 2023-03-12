@@ -104,7 +104,7 @@ namespace backend_hackatron.Controllers
             result = result.Remove(result.Length - 1);
 
             Double bigDouble = Double.Parse(result);
-            bigDouble /= 1000000000000000000;
+            //bigDouble /= 1000000000000000000;
 
             return (int)bigDouble;
         }
