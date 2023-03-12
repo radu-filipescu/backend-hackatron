@@ -187,7 +187,7 @@ namespace backend_hackatron.Services
             return resultString;
         }
 
-        public List<string> CreateUser(string nodeName)
+        public string CreateUser(string nodeName)
         {
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
@@ -202,15 +202,12 @@ namespace backend_hackatron.Services
 
             string result = process.StandardOutput.ReadToEnd();
 
-            List<string> resultList = new List<string>();
-            resultList.Add(result);
-
             process.Kill();
 
-            return resultList;
+            return result;
         }
 
-        public List<string> GetAllUsersFromNode(string nodeName)
+        public string GetAllUsersFromNode(string nodeName)
         {
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
@@ -225,15 +222,12 @@ namespace backend_hackatron.Services
 
             string result = process.StandardOutput.ReadToEnd();
 
-            List<string> resultList = new List<string>();
-            resultList.Add(result);
-
             process.Kill();
 
-            return resultList;
+            return result;
         }
 
-        public List<string> SetUserToMine(string nodeName, int userIndex)
+        public string SetUserToMine(string nodeName, int userIndex)
         {
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
@@ -248,12 +242,9 @@ namespace backend_hackatron.Services
 
             string result = process.StandardOutput.ReadToEnd();
 
-            List<string> resultList = new List<string>();
-            resultList.Add(result);
-
             process.Kill();
 
-            return resultList;
+            return result;
         }
 
         public bool StartMining(string nodeName)

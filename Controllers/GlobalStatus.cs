@@ -45,35 +45,53 @@ namespace backend_hackatron.Controllers
         }
 
         [HttpPut("createUser")]
-        public List<string> CreateUserForNode([FromBody]string nodeName)
+        public string CreateUserForNode([FromBody]SingleStringDTO input)
         {
-            List<string> result = _cmdCommandsService.CreateUser(nodeName);
+            string result = _cmdCommandsService.CreateUser(input.Value);
+
+            result = result.Remove(result.Length - 2);
+            result = result.Remove(0, 1);
 
             return result;
         }
 
         [HttpPut("getFromNode")]
-        public List<string> GetAllUsersFromNode([FromBody]string nodeName)
+        public List<string> GetAllUsersFromNode([FromBody]SingleStringDTO input)
         {
-            return _cmdCommandsService.GetAllUsersFromNode(nodeName);
+            string result = _cmdCommandsService.GetAllUsersFromNode(input.Value);
+
+            result = result.Remove(result.Length - 2);
+            result = result.Remove(0, 1);
+
+            List<string> resultSplit = result.Split(",").ToList();
+
+            for(int i = 0; i < resultSplit.Count; i++)
+            {
+                resultSplit[i] = resultSplit[i].Remove(resultSplit[i].Length - 2);
+                resultSplit[i] = resultSplit[i].Remove(0, 1);
+            }
+
+            return resultSplit;
         }
 
         [HttpPut("setUserToMine")]
         public List<string> SetUserToMine([FromBody] SetUserToMineDTO input)
         {
-            return _cmdCommandsService.SetUserToMine(input.NodeName, input.UserIndex);
+            string result = _cmdCommandsService.SetUserToMine(input.NodeName, input.UserIndex);
+
+            return new List<string>();
         }
 
         [HttpPut("startMining")]
-        public bool StartMining([FromBody]string nodeName)
+        public bool StartMining([FromBody] SingleStringDTO input)
         {
-            return _cmdCommandsService.StartMining(nodeName);
+            return _cmdCommandsService.StartMining(input.Value);
         }
 
         [HttpPut("stopMining")]
-        public bool StopMining([FromBody] string nodeName)
+        public bool StopMining([FromBody] SingleStringDTO input)
         {
-            return _cmdCommandsService.StopMining(nodeName);
+            return _cmdCommandsService.StopMining(input.Value);
         }
 
         [HttpPut("balance")]
@@ -96,9 +114,9 @@ namespace backend_hackatron.Controllers
         }
 
         [HttpPut("checkMining")]
-        public bool CheckNodeMining([FromBody] string nodeName)
+        public bool CheckNodeMining([FromBody] SingleStringDTO input)
         {
-            string response = _cmdCommandsService.IsNodeMining(nodeName);
+            string response = _cmdCommandsService.IsNodeMining(input.Value);
 
             response = response.Remove(response.Length - 1);
 

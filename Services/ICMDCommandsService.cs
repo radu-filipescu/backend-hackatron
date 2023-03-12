@@ -14,11 +14,11 @@ namespace backend_hackatron.Services
         public Task<List<string>> InitialiseNode4();
         public Task<List<string>> InitialiseNode5();
 
-        public List<string> CreateUser(string nodeName);
+        public string CreateUser(string nodeName);
 
-        public List<string> GetAllUsersFromNode(string nodeName);
+        public string GetAllUsersFromNode(string nodeName);
 
-        public List<string> SetUserToMine(string nodeName, int userIndex);
+        public string SetUserToMine(string nodeName, int userIndex);
 
         public bool StartMining(string nodeName);
         public bool StopMining(string nodeName);
