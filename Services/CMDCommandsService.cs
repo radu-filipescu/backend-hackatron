@@ -388,9 +388,6 @@ namespace backend_hackatron.Services
 
             string result = process.StandardOutput.ReadToEnd();
 
-            List<string> resultList = new List<string>();
-            resultList.Add(result);
-
             process.Kill();
 
             return result;
