@@ -119,8 +119,10 @@ namespace backend_hackatron.Controllers
         public bool CheckNodeMining([FromBody] SingleStringDTO input)
         {
             string response = _cmdCommandsService.IsNodeMining(input.Value);
-
-            response = response.Remove(response.Length - 1);
+            if (response.Length > 1)
+            {
+                response = response.Remove(response.Length - 1);
+            } 
 
             return bool.Parse(response);
         }
