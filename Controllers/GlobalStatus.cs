@@ -45,14 +45,19 @@ namespace backend_hackatron.Controllers
         }
 
         [HttpPut("createUser")]
-        public string CreateUserForNode([FromBody]SingleStringDTO input)
+        public SingleStringDTO CreateUserForNode([FromBody]SingleStringDTO input)
         {
             string result = _cmdCommandsService.CreateUser(input.Value);
 
-            result = result.Remove(result.Length - 2);
-            result = result.Remove(0, 1);
+            if(result.Length > 1)
+                result = result.Remove(result.Length - 2);
 
-            return result;
+            if(result.Length > 3)
+                result = result.Remove(0, 3);
+
+            var tmp = new SingleStringDTO();
+            tmp.Value = result;
+            return tmp;
         }
 
         [HttpPut("getFromNode")]
@@ -69,8 +74,11 @@ namespace backend_hackatron.Controllers
 
             for(int i = 0; i < resultSplit.Count; i++)
             {
-                resultSplit[i] = resultSplit[i].Remove(resultSplit[i].Length - 2);
-                resultSplit[i] = resultSplit[i].Remove(0, 1);
+                if(resultSplit[i].Length > 1)
+                    resultSplit[i] = resultSplit[i].Remove(resultSplit[i].Length - 2);
+
+                if (resultSplit[i].Length > 1)
+                    resultSplit[i] = resultSplit[i].Remove(0, 1);
             }
 
             return resultSplit;

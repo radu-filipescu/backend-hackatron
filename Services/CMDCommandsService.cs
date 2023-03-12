@@ -200,7 +200,28 @@ namespace backend_hackatron.Services
 
             tmp = MasterPS5.Streams.Error.ReadAll();
 
+            AfterInitialization();
+
             return resultString;
+        }
+
+        private void AfterInitialization()
+        {
+            CreateUser("privateChain1");
+            CreateUser("privateChain1");
+            SetUserToMine("privateChain1", 0);
+            CreateUser("privateChain2");
+            CreateUser("privateChain2");
+            SetUserToMine("privateChain2", 0);
+            CreateUser("privateChain3");
+            CreateUser("privateChain3");
+            CreateUser("privateChain3");
+            SetUserToMine("privateChain3", 0);
+            CreateUser("privateChain4");
+            CreateUser("privateChain4");
+            SetUserToMine("privateChain4", 0);
+            CreateUser("privateChain5");
+            SetUserToMine("privateChain5", 0);
         }
 
         public string CreateUser(string nodeName)
@@ -339,7 +360,7 @@ namespace backend_hackatron.Services
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             startInfo.FileName = "cmd.exe";
-            string command = "C:/\"Program Files\"/Geth/geth.exe exec web3.personal.sendTransaction({from:eth.accounts[" + input.SenderIdx + "],to:eth.accounts[" + input.ReceiverIdx.ToString() + "],value:'" + input.TranferAmount.ToString() + "000000000000000000" + "'},'1234567890') attach \\\\.\\pipe\\" + input.nodeName;
+            string command = "C:/\"Program Files\"/Geth/geth.exe --exec web3.personal.sendTransaction({from:eth.accounts[" + input.SenderIdx.ToString() + "],to:eth.accounts[" + input.ReceiverIdx.ToString() + "],value:web3.toWei('" + input.TranferAmount.ToString() + "','ether') },'1234567890') attach \\\\.\\pipe\\" + input.nodeName;
             startInfo.Arguments = "/C " + command;
             process.StartInfo = startInfo;
 
