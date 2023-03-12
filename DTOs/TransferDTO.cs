@@ -11,7 +11,7 @@ namespace backend_hackatron.DTOs
 
         public int ReceiverIdx { get; set; }
 
-        public int TranferAmount { get; set; }
+        public int TransferAmount { get; set; }
 
         public string nodeName { get; set; }
     }

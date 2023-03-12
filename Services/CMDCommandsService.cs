@@ -226,6 +226,9 @@ namespace backend_hackatron.Services
 
         public string CreateUser(string nodeName)
         {
+            if (!Directory.Exists("privateChain1"))
+                return string.Empty;
+
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
@@ -286,6 +289,9 @@ namespace backend_hackatron.Services
 
         public bool StartMining(string nodeName)
         {
+            if (!Directory.Exists("privateChain1"))
+                return false;
+
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
@@ -309,6 +315,9 @@ namespace backend_hackatron.Services
 
         public bool StopMining(string nodeName)
         {
+            if (!Directory.Exists("privateChain1"))
+                return false;
+
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
@@ -332,6 +341,9 @@ namespace backend_hackatron.Services
 
         public string GetBalance(string nodeName, int userIndex)
         {
+            if (!Directory.Exists("privateChain1"))
+                return string.Empty;
+
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
@@ -356,11 +368,15 @@ namespace backend_hackatron.Services
 
         public string TransferAmount(TransferDTO input)
         {
+            if (!Directory.Exists("privateChain1"))
+                return string.Empty;
+
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             startInfo.FileName = "cmd.exe";
-            string command = "C:/\"Program Files\"/Geth/geth.exe --exec web3.personal.sendTransaction({from:eth.accounts[" + input.SenderIdx.ToString() + "],to:eth.accounts[" + input.ReceiverIdx.ToString() + "],value:web3.toWei('" + input.TranferAmount.ToString() + "','ether') },'1234567890') attach \\\\.\\pipe\\" + input.nodeName;
+            string command = "C:/\"Program Files\"/Geth/geth.exe --exec web3.personal.sendTransaction({from:eth.accounts[" + input.SenderIdx.ToString() + "],to:eth.accounts[" + input.ReceiverIdx.ToString() + "],value:web3.toWei('" + input.TransferAmount.ToString() + "','ether')},'1234567890') attach \\\\.\\pipe\\" + input.nodeName;
+            //string command = "C:/\"Program Files\"/Geth/geth.exe --exec web3.personal.sendTransaction({from:eth.accounts[" + input.SenderIdx.ToString() + "],to:eth.accounts[" + input.ReceiverIdx.ToString() + "],value:web3.toWei('" + input.TranferAmount.ToString() + "','ether') },'1234567890') attach \\\\.\\pipe\\" + input.nodeName;
             startInfo.Arguments = "/C " + command;
             process.StartInfo = startInfo;
 
@@ -379,6 +395,9 @@ namespace backend_hackatron.Services
 
         public string IsNodeMining(string nodeName)
         {
+            if (!Directory.Exists("privateChain1"))
+                return string.Empty;
+
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
